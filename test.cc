@@ -343,7 +343,7 @@ BEGIN_TEST()
 		EXPECT_TRUE(p2 && p2.get() == &obj1);
 	}
 
-	// replace with pointer (tests reset() as well)
+	// reset
 	{
 		Object obj1, obj2;
 		Ptr p(&obj1);
@@ -353,35 +353,35 @@ BEGIN_TEST()
 		EXPECT_TRUE(p && p.get() == &obj1);
 
 		// other pointer
-		p = &obj2;
+		p.reset(&obj2);
 
 		EXPECT_TRUE(obj1.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(obj2.dangling_ptrs_.size() == 1);
 		EXPECT_TRUE(p && p.get() == &obj2);
 
 		// same pointer
-		p = &obj2;
+		p.reset(&obj2);
 
 		EXPECT_TRUE(obj1.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(obj2.dangling_ptrs_.size() == 1);
 		EXPECT_TRUE(p && p.get() == &obj2);
 
 		// non-null -> null
-		p = nullptr;
+		p.reset(nullptr);
 
 		EXPECT_TRUE(obj1.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(obj2.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(!p && p.get() == nullptr);
 
 		// null -> null
-		p = nullptr;
+		p.reset(nullptr);
 
 		EXPECT_TRUE(obj1.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(obj2.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(!p && p.get() == nullptr);
 
 		// null -> non-null
-		p = &obj2;
+		p.reset(&obj2);
 
 		EXPECT_TRUE(obj1.dangling_ptrs_.size() == 0);
 		EXPECT_TRUE(obj2.dangling_ptrs_.size() == 1);
