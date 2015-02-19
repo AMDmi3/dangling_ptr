@@ -16,12 +16,12 @@ coverage:
 	${CXX} ${CXXFLAGS} ${COV_CXXFLAGS}  test.cc -o test_cov
 	./test_cov
 	${GCOV} test.cc
-	cat danglingptr.hh.gcov
+	cat dangling_ptr.hh.gcov
 
-test_set: test.cc danglingptr.hh
+test_set: test.cc dangling_ptr.hh
 	${CXX} ${CXXFLAGS} -DDANGLINGPTR_USE_SET test.cc -o test_set
 
-test_list: test.cc danglingptr.hh
+test_list: test.cc dangling_ptr.hh
 	${CXX} ${CXXFLAGS} -DDANGLINGPTR_USE_LIST test.cc -o test_list
 
 clean:

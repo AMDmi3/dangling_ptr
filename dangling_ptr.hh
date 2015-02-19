@@ -24,8 +24,8 @@
  * SUCH DAMAGE.
  */
 
-#ifndef DANGLINGPTR_HH
-#define DANGLINGPTR_HH
+#ifndef DANGLING_PTR_HH
+#define DANGLING_PTR_HH
 
 #include <memory>
 #include <cassert>

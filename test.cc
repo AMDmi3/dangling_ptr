@@ -1,7 +1,7 @@
 #include "testing.h"
 
 #define private public
-#include "danglingptr.hh"
+#include "dangling_ptr.hh"
 #undef private
 
 #include <memory>

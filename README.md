@@ -8,7 +8,7 @@ freed memory is impossible.
 
 ## Synopsis
 
-    #include <danglingptr.hh>
+    #include <dangling_ptr.hh>
 
     class MyObject : public dangling::target<MyObject> {
     public:
