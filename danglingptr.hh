@@ -101,10 +101,11 @@ private:
 
 public:
 	// ctor/dtor
-	ptr(T* target = nullptr) : target_(new T*(nullptr)) {
-		if (target != nullptr)
+	ptr(T* target = nullptr) : target_(target ? new T*(nullptr) : nullptr) {
+		if (target != nullptr) {
 			target->register_ptr(target_.get());
-		*target_ = target;
+			*target_ = target;
+		}
 	}
 
 	~ptr() {
@@ -125,10 +126,9 @@ public:
 	}
 
 	// copy ctor/assignment
-	ptr(const ptr<T>& other) : target_(new T*(nullptr)) {
-		if (other.target_ && *other.target_)
-			(*other.target_)->register_ptr(target_.get());
-		*target_ = other.target_ ? *other.target_ : nullptr;
+	ptr(const ptr<T>& other) : target_(other.get() ? new T*(other.get()) : nullptr) {
+		if (target_)
+			(*target_)->register_ptr(target_.get());
 	}
 
 	ptr<T>& operator=(const ptr<T>& other) {
