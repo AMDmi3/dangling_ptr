@@ -145,15 +145,31 @@ public:
 	}
 
 	void reset(T* target = nullptr) {
-		if (!target_)
-			target_.reset(new T*(nullptr));
-		if (*target_ == target)
+		if (get() == target)
 			return;
-		if (target != nullptr)
-			target->register_ptr(target_.get());
-		if (*target_)
-			(*target_)->unregister_ptr(target_.get());
-		*target_ = target;
+
+		if (target == nullptr) {
+			if (target_ && *target_) {
+				(*target_)->unregister_ptr(target_.get());
+				*target_ = nullptr;
+			} else {
+				// this branch is never taken as its condition
+				// falls under get() == target check above
+			}
+		} else {
+			if (target_ && *target_) {
+				target->register_ptr(target_.get());
+				(*target_)->unregister_ptr(target_.get());
+				*target_ = target;
+			} else if (target_) {
+				target->register_ptr(target_.get());
+				*target_ = target;
+			} else {
+				target_.reset(new T*(nullptr));
+				target->register_ptr(target_.get());
+				*target_ = target;
+			}
+		}
 	}
 
 	// dereferencing
