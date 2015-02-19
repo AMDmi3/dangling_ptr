@@ -151,22 +151,19 @@ public:
 		if (target == nullptr) {
 			if (target_ && *target_) {
 				(*target_)->unregister_ptr(target_.get());
-				*target_ = target;
 			}
 		} else {
 			if (target_ && *target_) {
 				target->register_ptr(target_.get());
 				(*target_)->unregister_ptr(target_.get());
-				*target_ = target;
 			} else if (target_) {
 				target->register_ptr(target_.get());
-				*target_ = target;
 			} else {
 				target_.reset(new T*(nullptr));
 				target->register_ptr(target_.get());
-				*target_ = target;
 			}
 		}
+		*target_ = target;
 	}
 
 	// dereferencing
