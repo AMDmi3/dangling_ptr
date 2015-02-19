@@ -147,22 +147,13 @@ public:
 	void reset(T* target = nullptr) {
 		if (get() == target)
 			return;
-
-		if (target == nullptr) {
-			if (target_ && *target_) {
-				(*target_)->unregister_ptr(target_.get());
-			}
-		} else {
-			if (target_ && *target_) {
-				target->register_ptr(target_.get());
-				(*target_)->unregister_ptr(target_.get());
-			} else if (target_) {
-				target->register_ptr(target_.get());
-			} else {
+		if (target) {
+			if (!target_)
 				target_.reset(new T*(nullptr));
-				target->register_ptr(target_.get());
-			}
+			target->register_ptr(target_.get());
 		}
+		if (target_ && *target_)
+			(*target_)->unregister_ptr(target_.get());
 		*target_ = target;
 	}
 
