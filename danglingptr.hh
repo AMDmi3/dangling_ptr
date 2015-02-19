@@ -151,10 +151,7 @@ public:
 		if (target == nullptr) {
 			if (target_ && *target_) {
 				(*target_)->unregister_ptr(target_.get());
-				*target_ = nullptr;
-			} else {
-				// this branch is never taken as its condition
-				// falls under get() == target check above
+				*target_ = target;
 			}
 		} else {
 			if (target_ && *target_) {
