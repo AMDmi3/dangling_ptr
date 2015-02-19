@@ -142,11 +142,6 @@ public:
 	}
 
 	// setters
-	ptr<T>& operator=(T* target) {
-		reset(target);
-		return *this;
-	}
-
 	void reset(T* target = nullptr) {
 		if (get() == target)
 			return;
