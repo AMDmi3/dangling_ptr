@@ -101,7 +101,10 @@ private:
 
 public:
 	// ctor/dtor
-	ptr(T* target = nullptr) : target_(target ? new T*(nullptr) : nullptr) {
+	constexpr ptr() {
+	}
+
+	explicit ptr(T* target) : target_(target ? new T*(nullptr) : nullptr) {
 		if (target != nullptr) {
 			target->register_ptr(target_.get());
 			*target_ = target;
