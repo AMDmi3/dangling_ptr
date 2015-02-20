@@ -30,6 +30,7 @@
 #include <memory>
 #include <cassert>
 #include <exception>
+#include <type_traits>
 
 #if defined(DANGLINGPTR_USE_LIST) && !defined(DANGLINGPTR_USE_SET)
 #include <algorithm>
@@ -96,6 +97,7 @@ public:
 
 template <class T>
 class ptr {
+	static_assert(std::is_base_of<target<T>, T>::value, "dangling ptr target should be derived from dangling_ptr::target");
 private:
 	std::unique_ptr<T*> target_;
 
