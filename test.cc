@@ -23,6 +23,15 @@ BEGIN_TEST()
 		EXPECT_EQUAL((std::string)e.what(), (std::string)"bad dangling::ptr access");
 	}
 
+	// target should allow copy and move
+	{
+		Object a;
+		Object b(a);
+		Object c(std::move(a));
+		b = a;
+		c = std::move(a);
+	}
+
 	// simple construct & destroy
 	{
 		Object obj;
