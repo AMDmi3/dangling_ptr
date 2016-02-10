@@ -14,4 +14,4 @@ before_install:
 script:
   - make && make test
 after_success:
-  - if [ "$CXX" = "g++" ]; then coveralls; fi
+  - if [ "$CXX" = "g++" ]; then coveralls -i include; fi
