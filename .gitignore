@@ -1,6 +1,4 @@
 test_list
 test_set
-test_cov
-*.gcov
 test.gcda
 test.gcno
